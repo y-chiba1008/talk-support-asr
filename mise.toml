@@ -6,3 +6,17 @@ pnpm = "latest"
 
 [env]
 UV_PYTHON = "python"
+
+[tasks."dev:frontend"]
+description = "React 開発サーバーを起動"
+dir = "frontend"
+run = "pnpm dev"
+
+[tasks."dev:backend"]
+description = "FastAPI 開発サーバーを起動"
+dir = "backend"
+run = "uv run uvicorn main:app --reload"
+
+[tasks.dev]
+description = "フロントとバックを一括起動"
+depends = ["dev:frontend", "dev:backend"]
