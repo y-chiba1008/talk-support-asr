@@ -1,8 +1,11 @@
-import FetchTest from "./components/FetchTest"
+import { AbsoluteCenter } from "@chakra-ui/react"
+import AudioButton from "./components/AudioButton"
 
 function App() {
   return (
-    <FetchTest></FetchTest>
+    <AbsoluteCenter>
+      <AudioButton></AudioButton>
+    </AbsoluteCenter>
   )
 }
 
