@@ -1,5 +1,5 @@
 import { useTranscriptStatusStore } from '@/hooks/useTranscriptStatusStore';
-import { Button, VStack, Text } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import { useReactMediaRecorder } from 'react-media-recorder';
@@ -86,22 +86,15 @@ const AudioButton: React.FC = () => {
     }, [transcriptStatus, audioStatus, startRecording, stopRecording]);
 
     return (
-        <VStack>
-            <Button
-                colorPalette={buttonConfig.color}
-                onClick={buttonConfig.onClick}
-                loading={buttonConfig.loading}
-                loadingText={buttonConfig.label}
-                spinnerPlacement="end"
-            >
-                {buttonConfig.label} {buttonConfig.icon}
-            </Button>
-            {/* 以下はデバッグ用 */}
-            <Text>audioStatus: {audioStatus}</Text>
-            <Text>btnState: {transcriptStatus}</Text>
-            <Text>mediaBlobUrl: {mediaBlobUrl}</Text>
-            {mediaBlobUrl && <audio src={mediaBlobUrl} controls />}
-        </VStack>
+        <Button
+            colorPalette={buttonConfig.color}
+            onClick={buttonConfig.onClick}
+            loading={buttonConfig.loading}
+            loadingText={buttonConfig.label}
+            spinnerPlacement="end"
+        >
+            {buttonConfig.label} {buttonConfig.icon}
+        </Button>
     );
 };
 
