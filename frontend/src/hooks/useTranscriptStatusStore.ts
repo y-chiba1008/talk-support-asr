@@ -6,7 +6,7 @@ import { create } from "zustand";
  *  - idle: 待機中
  *  - in_progress: 進行中（API応答待ちなど）
  */
-type TranscriptStatus = 'idle' | 'in_progress';
+export type TranscriptStatus = 'idle' | 'in_progress';
 
 interface TranscriptStatusStore {
     transcriptStatus: TranscriptStatus;
@@ -19,8 +19,6 @@ interface TranscriptStatusStore {
  */
 export const useTranscriptStatusStore = create<TranscriptStatusStore>((set) => ({
     transcriptStatus: 'idle',
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    switchToIdle: () => set((_state) => ({ transcriptStatus: 'idle' })),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    switchToInProgress: () => set((_state) => ({ transcriptStatus: 'in_progress' })),
+    switchToIdle: () => set(({ transcriptStatus: 'idle' })),
+    switchToInProgress: () => set(({ transcriptStatus: 'in_progress' })),
 }));
