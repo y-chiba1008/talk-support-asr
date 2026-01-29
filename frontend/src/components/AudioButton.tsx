@@ -1,10 +1,8 @@
+import { useTranscriptStatusStore } from '@/hooks/useTranscriptStatusStore';
 import { Button, VStack, Text } from '@chakra-ui/react';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import { useReactMediaRecorder } from 'react-media-recorder';
-
-/** ボタン制御用のステータス */
-type AppStatus = 'idle' | 'requesting'
 
 /** ボタン設定値オブジェクト */
 interface Config {
@@ -23,7 +21,9 @@ const waitSeconds = (msec: number) => new Promise(resolve => setTimeout(resolve,
  * @description 録音停止時にapiにリクエストを送信する
 */
 const AudioButton: React.FC = () => {
-    const [appStatus, setAppStatus] = useState<AppStatus>('idle');
+    const transcriptStatus = useTranscriptStatusStore((state) => state.transcriptStatus);
+    const switchToIdle = useTranscriptStatusStore((state) => state.switchToIdle);
+    const switchToInProgress = useTranscriptStatusStore((state) => state.switchToInProgress);
 
     const sendRequest = async (blob: Blob) => {
         // 具体的な実装は後で
@@ -41,18 +41,18 @@ const AudioButton: React.FC = () => {
         audio: true,
         onStop: async (_blobUrl, blob) => {
             console.log('onStop');
-            setAppStatus('requesting');
+            switchToInProgress();
             try {
                 await sendRequest(blob);
             } finally {
-                setAppStatus('idle');
+                switchToIdle();
             }
         },
     });
 
     // 表示内容の整理
     const buttonConfig: Config = useMemo(() => {
-        if (appStatus === 'requesting') {
+        if (transcriptStatus === 'in_progress') {
             // API応答待ち
             return {
                 label: '解析中...',
@@ -83,7 +83,7 @@ const AudioButton: React.FC = () => {
                 onClick: startRecording,
             };
         }
-    }, [appStatus, audioStatus, startRecording, stopRecording]);
+    }, [transcriptStatus, audioStatus, startRecording, stopRecording]);
 
     return (
         <VStack>
@@ -98,7 +98,7 @@ const AudioButton: React.FC = () => {
             </Button>
             {/* 以下はデバッグ用 */}
             <Text>audioStatus: {audioStatus}</Text>
-            <Text>btnState: {appStatus}</Text>
+            <Text>btnState: {transcriptStatus}</Text>
             <Text>mediaBlobUrl: {mediaBlobUrl}</Text>
             {mediaBlobUrl && <audio src={mediaBlobUrl} controls />}
         </VStack>
