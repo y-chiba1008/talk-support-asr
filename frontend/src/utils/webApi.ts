@@ -1,5 +1,6 @@
-/** エンドポイント */
-const ENDPOINT = 'http://localhost:8000';
+import { API_CONFIG } from './config';
+
+/** 文字起こしAPIのパス */
 const TRANSCRIPT = 'transcript'
 
 /**
@@ -10,20 +11,32 @@ const TRANSCRIPT = 'transcript'
  * @returns APIのレスポンスボディ
  * @throws 通信エラー
  */
-const sendRequest = async <T>(path: string, method: string, data: BodyInit | object): Promise<T> => {
+const sendRequest = async <T>(
+    path: string,
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'TRACE' | 'CONNECT',
+    data: BodyInit | object,
+): Promise<T> => {
     // URL整形
-    const url = new URL(path, ENDPOINT);
+    const endpoint = API_CONFIG.ENDPOINT;
+    const url = new URL(path, endpoint);
 
-    // dataがobjectの場合、JSON文字列に変換
-    const body = (typeof (data) === 'object') ? JSON.stringify(data) : data
+    const options: RequestInit = {
+        method,
+    };
+
+    if (data instanceof FormData) {
+        // dataがFormDataの場合、Content-Typeは自動設定
+        options.body = data;
+    } else {
+        // dataがobjectの場合、Content-Typeの設定とJSON文字列への変換を行う
+        options.headers = { 'Content-Type': 'application/json' };
+        options.body = JSON.stringify(data);
+    }
 
     try {
         // 送信
         console.log(`API 送信開始 [${url.href}]`);
-        const response = await fetch(url, {
-            method: method,
-            body: body,
-        });
+        const response = await fetch(url, options);
 
         if (response.ok) {
             console.log(`API 送信成功 [${url.href}]`);
@@ -67,7 +80,8 @@ export const sendTranscriptRequest = async (blob: Blob): Promise<TranscriptApiRe
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const sendTranscriptRequestDummy = async (_blob: Blob): Promise<TranscriptApiResult> => {
-    const url = new URL(TRANSCRIPT, ENDPOINT);
+    const endpoint = API_CONFIG.ENDPOINT;
+    const url = new URL(TRANSCRIPT, endpoint);
     console.log(`【ダミー】API 送信開始 [${url.href}]`);
 
     // 3秒待つ
