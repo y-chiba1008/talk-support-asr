@@ -19,28 +19,39 @@ interface TranscriptStore {
 /**
  * 文字起こしステータスストア
  */
-export const useTranscriptStore = create<TranscriptStore>((set) => ({
+export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
     transcriptStatus: 'idle',
     sentence: null,
     errorMessage: null,
     startTranscript: async (blob: Blob): Promise<void> => {
+        // 二重送信防止
+        if (get().transcriptStatus === 'in_progress') {
+            return;
+        }
+
         // ステータスを進行中にセット
-        set(({ transcriptStatus: 'in_progress' }));
+        set({
+            transcriptStatus: 'in_progress',
+            sentence: null,
+            errorMessage: null,
+        });
         try {
             // リクエスト送信
             const result = await sendTranscriptRequestDummy(blob);
 
             // 文字起こし結果をセット
-            set(({ sentence: result.sentence }));
-            set(({ errorMessage: null }));
+            set({
+                transcriptStatus: 'idle',
+                sentence: result.sentence,
+                errorMessage: null,
+            });
         } catch {
             // エラーメッセージをセット
-            // TODO: エラーメッセージを詳細に定義
-            set(({ sentence: null }));
-            set(({ errorMessage: 'エラーが発生しました' }));
-        } finally {
-            // ステータスを待機中にセット
-            set(({ transcriptStatus: 'idle' }));
+            set({
+                transcriptStatus: 'idle',
+                sentence: null,
+                errorMessage: '文字起こしに失敗しました。もう一度お試しください。',
+            });
         }
     },
 }));
