@@ -1,4 +1,4 @@
-import { useTranscriptStatusStore } from '@/hooks/useTranscriptStatusStore';
+import { useTranscriptStore } from '@/hooks/useTranscriptStore';
 import { Button } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
@@ -13,40 +13,26 @@ interface Config {
     onClick?: () => void;
 }
 
-// デバッグ用
-const waitSeconds = (msec: number) => new Promise(resolve => setTimeout(resolve, msec));
-
 /**
- * @summary 録音ボタン
+ * 録音ボタン
  * @description 録音停止時にapiにリクエストを送信する
 */
 const AudioButton: React.FC = () => {
-    const transcriptStatus = useTranscriptStatusStore((state) => state.transcriptStatus);
-    const switchToIdle = useTranscriptStatusStore((state) => state.switchToIdle);
-    const switchToInProgress = useTranscriptStatusStore((state) => state.switchToInProgress);
-
-    const sendRequest = async (blob: Blob) => {
-        // 具体的な実装は後で
-        console.log('send request');
-        await waitSeconds(3000);
-    };
+    const transcriptStatus = useTranscriptStore((state) => state.transcriptStatus);
+    const startTranscript = useTranscriptStore((state) => state.startTranscript);
 
     // 録音機能Hook
     const {
         status: audioStatus,
         startRecording,
         stopRecording,
-        mediaBlobUrl,
     } = useReactMediaRecorder({
         audio: true,
+
+        // 録音停止コールバック
         onStop: async (_blobUrl, blob) => {
             console.log('onStop');
-            switchToInProgress();
-            try {
-                await sendRequest(blob);
-            } finally {
-                switchToIdle();
-            }
+            await startTranscript(blob)
         },
     });
 
