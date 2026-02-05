@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import ping
+from app.routers import transcript
 
 app = FastAPI()
 
+# ミドルウェアの設定
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -12,12 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ルータを追加
 app.include_router(ping.router, prefix="/ping", tags=["ping"])
-
-# @app.get("/")
-# def read_root():
-#     return {"Hello": "World", "Status": "Success2"}
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: str = None):
-#     return {"item_id": item_id, "q": q}
+app.include_router(transcript.router, prefix="/transcript", tags=["transcript"])
