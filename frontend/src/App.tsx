@@ -1,26 +1,15 @@
-import {
-    AbsoluteCenter, Heading, VStack,
-    createSystem, defineConfig, defaultConfig, ChakraProvider,
-} from "@chakra-ui/react"
+import { AbsoluteCenter, Heading, VStack, ChakraProvider, } from "@chakra-ui/react"
 import AudioButton from "./components/AudioButton"
 import SentenceArea from "./components/SentenceArea"
-
-// 背景色の設定
-const config = defineConfig({
-    globalCss: {
-        body: {
-            bg: "gray.50",
-        },
-    },
-});
-const system = createSystem(defaultConfig, config);
+import { system } from "@/config/theme"
 
 function App() {
     return (
         <ChakraProvider value={system}>
             {/* ヘッダ */}
             <Heading
-                textAlign="center" padding={3}
+                as="h1" size="2xl"
+                textAlign="center" py={4}
                 textDecoration="underline"
                 textDecorationColor="cyan.fg"
                 textDecorationThickness="2px"
@@ -29,10 +18,10 @@ function App() {
 
             {/* コンテンツ */}
             <AbsoluteCenter height="80vh">
-                <VStack width="500px" height="100%">
-                    <AudioButton width="100%" />
+                <VStack width="500px" height="100%" align="stretch">
+                    <AudioButton />
                     <SentenceArea
-                        width="100%" height="100%"
+                        flex="1"
                         backgroundColor="bg.panel"
                         borderWidth="1px"
                         borderColor="border"
