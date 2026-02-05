@@ -1,4 +1,4 @@
-import { API_CONFIG } from './config';
+import { API_CONFIG } from '../config/config';
 
 /** 文字起こしAPIのパス */
 const TRANSCRIPT = 'transcript'
