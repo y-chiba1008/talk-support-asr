@@ -1,5 +1,5 @@
 import { useTranscriptStore } from '@/hooks/useTranscriptStore';
-import { Button } from '@chakra-ui/react';
+import { Button, type ButtonProps } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 import { useReactMediaRecorder } from 'react-media-recorder';
@@ -17,7 +17,7 @@ interface Config {
  * 録音ボタン
  * @description 録音停止時にapiにリクエストを送信する
 */
-const AudioButton: React.FC = () => {
+const AudioButton = ({ children, ...btnProps }: ButtonProps) => {
     const transcriptStatus = useTranscriptStore((state) => state.transcriptStatus);
     const startTranscript = useTranscriptStore((state) => state.startTranscript);
 
@@ -78,8 +78,9 @@ const AudioButton: React.FC = () => {
             loading={buttonConfig.loading}
             loadingText={buttonConfig.label}
             spinnerPlacement="end"
+            {...btnProps}
         >
-            {buttonConfig.label} {buttonConfig.icon}
+            {children || <>{buttonConfig.label} {buttonConfig.icon}</>}
         </Button>
     );
 };
