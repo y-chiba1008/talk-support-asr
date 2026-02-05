@@ -1,4 +1,4 @@
-import { sendTranscriptRequestDummy } from "@/utils/webApi";
+import { sendTranscriptRequest } from "@/utils/webApi";
 import { create } from "zustand";
 
 /**
@@ -37,7 +37,7 @@ export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
         });
         try {
             // リクエスト送信
-            const result = await sendTranscriptRequestDummy(blob);
+            const result = await sendTranscriptRequest(blob);
 
             // 文字起こし結果をセット
             set({
