@@ -14,6 +14,7 @@ interface TranscriptStore {
     sentence: string | null;
     errorMessage: string | null;
     startTranscript: (blob: Blob) => Promise<void>;
+    clearErrorMessage: () => void;
 }
 
 /**
@@ -54,4 +55,5 @@ export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
             });
         }
     },
+    clearErrorMessage: (): void => { set({ errorMessage: null }) }
 }));
