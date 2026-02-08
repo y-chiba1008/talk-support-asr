@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
+import logging
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -18,20 +19,30 @@ def _load_config() -> _Config:
     例）.env.development
     """
 
+    logger = logging.getLogger('uvicorn')
+
     # .envのファイル名
     envfile = '.env'
     env = os.getenv('ENV')
     if env is not None:
         envfile += f'.{env}'
 
+    logger.info(f'[config] load config from {envfile}')
+
     # .env読み込み
     load_dotenv(envfile, verbose=True)
 
     # 設定値読み込み
     # 未設定時にKeyErrorを出す為にos.getenvではなくos.environを使用する
-    return _Config(
+    config = _Config(
         FRONT_ORIGIN=os.environ['FRONT_ORIGIN'],
         MODEL_PATH=Path(os.environ['MODEL_PATH']),
     )
+
+    # ログ出力
+    for field in fields(config):
+        logger.info(f'[config] {field.name} = {getattr(config, field.name)}')
+
+    return config
 
 CONFIG = _load_config()
