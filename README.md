@@ -21,7 +21,22 @@ TODO:後で書く
     mise install
     ```
 
-- 環境変数を設定する（[.env](#.env)）
+- frontend
+    ```
+    cd frontend
+    npm install
+    ```
+
+- backend
+    ```
+    cd backend
+    uv sync
+    ```
+
+- 環境変数を設定する（[.env](#.env)セクションを参照）
+
+- 開発サーバ起動
+TODO:後で書く
 
 ## .env
 frontendとbackend配下にそれぞれ下記のファイル名で作成する
