@@ -1,4 +1,4 @@
-import { API_CONFIG } from '../config/config';
+import { CONFIG } from '../config/config';
 
 /** 文字起こしAPIのパス */
 const TRANSCRIPT = 'transcript'
@@ -17,7 +17,7 @@ const sendRequest = async <T>(
     data: BodyInit | object,
 ): Promise<T> => {
     // URL整形
-    const endpoint = API_CONFIG.ENDPOINT;
+    const endpoint = CONFIG.API_BASE_URL;
     const url = new URL(path, endpoint);
 
     const options: RequestInit = {

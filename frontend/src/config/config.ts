@@ -16,6 +16,6 @@ const getEnv = (key: string): string => {
 };
 
 /** API関連設定 */
-export const API_CONFIG = {
-    ENDPOINT: getEnv('VITE_API_ENDPOINT'),
+export const CONFIG = {
+    API_BASE_URL: getEnv('VITE_API_BASE_URL'),
 } as const;

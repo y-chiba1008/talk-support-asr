@@ -1,3 +1,5 @@
 data/*
 model/*
 memo/*
+*/.env*
+!*/.env.sample

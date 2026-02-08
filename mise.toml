@@ -6,6 +6,7 @@ pnpm = "latest"
 
 [env]
 UV_PYTHON = "python"
+ENV = "development"
 
 [tasks."dev:frontend"]
 description = "React 開発サーバーを起動"
