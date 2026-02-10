@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import ping
 from app.routers import transcript
-from app.middlewares.logStartEndMiddleware import LogStartEndMiddleware
 from app.config import CONFIG
 
 app = FastAPI()
@@ -16,8 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-## 開始/終了ログ
-app.add_middleware(LogStartEndMiddleware)
 
 # ルータを追加
 app.include_router(ping.router, prefix="/ping", tags=["ping"])
