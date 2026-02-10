@@ -10,7 +10,9 @@ class _Config:
     config格納クラス
     """
     FRONT_ORIGIN: str
-    MODEL_PATH: Path
+    ADAPTER_PATH: str
+    BASE_MODEL: str
+    DEVICE: str
 
 def _load_config() -> _Config:
     """
@@ -33,11 +35,8 @@ def _load_config() -> _Config:
     load_dotenv(envfile, verbose=True)
 
     # 設定値読み込み
-    # 未設定時にKeyErrorを出す為にos.getenvではなくos.environを使用する
-    config = _Config(
-        FRONT_ORIGIN=os.environ['FRONT_ORIGIN'],
-        MODEL_PATH=Path(os.environ['MODEL_PATH']),
-    )
+    config_dict = {field.name: os.environ[field.name] for field in fields(_Config)}
+    config = _Config(**config_dict)
 
     # ログ出力
     for field in fields(config):
