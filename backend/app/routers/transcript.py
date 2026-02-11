@@ -74,7 +74,7 @@ async def transcript(audio: UploadFile = File(...)):
     result = pipe(audio_bytes, generate_kwargs={'language': 'japanese', 'task': 'transcribe'})
     result = cast(dict[str, Any], result)
     if not isinstance(result, dict):
-        raise HTTPException(status_code=500, detail="Unexpected model output format")
+        raise HTTPException(status_code=500, detail='Unexpected model output format')
 
     response = {
         'sentence': result['text'],
