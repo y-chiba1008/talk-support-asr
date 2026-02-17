@@ -19,7 +19,9 @@ function App() {
 
             {/* コンテンツ */}
             <AbsoluteCenter height="80vh">
-                <VStack width="500px" height="100%" align="stretch">
+                <VStack
+                    width={{ base: "90vw", md: "500px" }}
+                    height="100%" align="stretch">
                     <AudioButton />
                     <SentenceArea
                         flex="1"
