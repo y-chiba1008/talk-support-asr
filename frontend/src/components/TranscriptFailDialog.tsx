@@ -1,5 +1,5 @@
-import { useTranscriptStore } from '@/hooks/useTranscriptStore';
 import MessageDialog from './MessageDialog';
+import { useNotificationStore } from '@/hooks/useNotificationStore';
 
 /**
  * 文字起こしエラーダイアログ
@@ -7,19 +7,19 @@ import MessageDialog from './MessageDialog';
  * ダイアログを閉じるとエラーメッセージがクリアされる
  */
 const TranscriptFailDialog = () => {
-    const errorMessage = useTranscriptStore((state) => state.errorMessage);
-    const clearErrorMessage = useTranscriptStore((state) => state.clearErrorMessage);
+    const message = useNotificationStore((state) => state.message);
+    const closeMessage = useNotificationStore((state) => state.closeMessage);
 
     return (
         <MessageDialog
-            open={Boolean(errorMessage)}
+            open={Boolean(message)}
             onOpenChange={(e) => {
                 if (!e.open) {
-                    clearErrorMessage();
+                    closeMessage();
                 }
             }}
             role='alertdialog'
-        >{errorMessage}</MessageDialog>
+        >{message}</MessageDialog>
     );
 };
 

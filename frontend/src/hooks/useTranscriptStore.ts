@@ -1,5 +1,8 @@
 import { sendTranscriptRequest } from "@/utils/webApi";
 import { create } from "zustand";
+import { useNotificationStore } from "./useNotificationStore";
+
+const ERROR_MESSAGE_TRANSCRIPT_FAIL = '文字起こしに失敗しました。もう一度お試しください。';
 
 /**
  * 文字起こしステータス
@@ -12,9 +15,7 @@ export type TranscriptStatus = 'idle' | 'in_progress';
 interface TranscriptStore {
     transcriptStatus: TranscriptStatus;
     sentence: string | null;
-    errorMessage: string | null;
     startTranscript: (blob: Blob) => Promise<void>;
-    clearErrorMessage: () => void;
 }
 
 /**
@@ -34,7 +35,6 @@ export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
         set({
             transcriptStatus: 'in_progress',
             sentence: null,
-            errorMessage: null,
         });
         try {
             // リクエスト送信
@@ -44,16 +44,15 @@ export const useTranscriptStore = create<TranscriptStore>((set, get) => ({
             set({
                 transcriptStatus: 'idle',
                 sentence: result.sentence,
-                errorMessage: null,
             });
         } catch {
             // エラーメッセージをセット
             set({
                 transcriptStatus: 'idle',
                 sentence: null,
-                errorMessage: '文字起こしに失敗しました。もう一度お試しください。',
             });
+            // メッセージを通知
+            useNotificationStore.getState().showMessage(ERROR_MESSAGE_TRANSCRIPT_FAIL);
         }
     },
-    clearErrorMessage: (): void => { set({ errorMessage: null }) }
 }));
