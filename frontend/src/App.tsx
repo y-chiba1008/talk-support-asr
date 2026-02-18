@@ -2,7 +2,7 @@ import { AbsoluteCenter, Heading, VStack, ChakraProvider, } from "@chakra-ui/rea
 import AudioButton from "./components/AudioButton"
 import SentenceArea from "./components/SentenceArea"
 import { system } from "@/config/theme"
-import TranscriptFailDialog from "./components/TranscriptFailDialog"
+import ErrorDialog from "./components/ErrorDialog"
 
 function App() {
     return (
@@ -33,7 +33,7 @@ function App() {
             </AbsoluteCenter>
 
             {/* エラーダイアログ */}
-            <TranscriptFailDialog />
+            <ErrorDialog />
         </ChakraProvider>
     )
 }

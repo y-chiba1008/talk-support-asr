@@ -6,7 +6,7 @@ import { useNotificationStore } from '@/hooks/useNotificationStore';
  * @description エラーメッセージが存在する場合にダイアログを表示する。
  * ダイアログを閉じるとエラーメッセージがクリアされる
  */
-const TranscriptFailDialog = () => {
+const ErrorDialog = () => {
     const message = useNotificationStore((state) => state.message);
     const closeMessage = useNotificationStore((state) => state.closeMessage);
 
@@ -23,4 +23,4 @@ const TranscriptFailDialog = () => {
     );
 };
 
-export default TranscriptFailDialog;
+export default ErrorDialog;
