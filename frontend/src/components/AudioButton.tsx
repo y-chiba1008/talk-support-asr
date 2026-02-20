@@ -1,8 +1,8 @@
+import { useRecorderStore } from '@/hooks/useRecorderStore';
 import { useTranscriptStore } from '@/hooks/useTranscriptStore';
 import { Button, type ButtonProps } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
-import { useReactMediaRecorder } from 'react-media-recorder';
 
 /** ボタン設定値オブジェクト */
 interface Config {
@@ -18,23 +18,10 @@ interface Config {
  * @description 録音停止時にapiにリクエストを送信する
 */
 const AudioButton = ({ children, ...btnProps }: ButtonProps) => {
+    const audioStatus = useRecorderStore((state) => state.status);
+    const startRecording = useRecorderStore((state) => state.start);
+    const stopRecording = useRecorderStore((state) => state.stop);
     const transcriptStatus = useTranscriptStore((state) => state.transcriptStatus);
-    const startTranscript = useTranscriptStore((state) => state.startTranscript);
-
-    // 録音機能Hook
-    const {
-        status: audioStatus,
-        startRecording,
-        stopRecording,
-    } = useReactMediaRecorder({
-        audio: true,
-
-        // 録音停止コールバック
-        onStop: async (_blobUrl, blob) => {
-            console.log('onStop');
-            await startTranscript(blob)
-        },
-    });
 
     // 表示内容の整理
     const buttonConfig: Config = useMemo(() => {
@@ -66,7 +53,10 @@ const AudioButton = ({ children, ...btnProps }: ButtonProps) => {
                 label: '録音する',
                 color: 'teal',
                 icon: <FaMicrophone />,
-                onClick: startRecording,
+                onClick: () => {
+                    console.log('startRecording');
+                    startRecording();
+                },
             };
         }
     }, [transcriptStatus, audioStatus, startRecording, stopRecording]);
