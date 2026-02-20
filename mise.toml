@@ -7,6 +7,9 @@ pnpm = "latest"
 [env]
 UV_PYTHON = "python"
 ENV = "development"
+LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED = "true"
+LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT = "{{config_root}}\\data"
+LABEL_STUDIO_BASE_DATA_DIR = "{{config_root}}\\label_studio_work\\app_data"
 
 [tasks."dev:frontend"]
 description = "React 開発サーバーを起動"
@@ -21,3 +24,8 @@ run = "uv run uvicorn app.main:app --reload"
 [tasks.dev]
 description = "フロントとバックを一括起動"
 depends = ["dev:frontend", "dev:backend"]
+
+[tasks.label_studio]
+description = "Label Stuidoサーバを起動"
+dir = "label_studio_work"
+run = "uv run label-studio start"
