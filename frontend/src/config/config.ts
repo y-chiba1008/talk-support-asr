@@ -15,7 +15,12 @@ const getEnv = (key: string): string => {
     return value;
 };
 
+const api_protocol = getEnv('VITE_API_PROTOCOl');
+const api_domain = getEnv('VITE_API_DOMAIN');
+
 /** API関連設定 */
 export const CONFIG = {
-    API_BASE_URL: getEnv('VITE_API_BASE_URL'),
+    API_PROTOCOl: api_protocol,
+    API_DOMAIN: api_domain,
+    API_BASE_URL: `${api_protocol}://${api_domain}`,
 } as const;

@@ -8,10 +8,15 @@ class _Config:
     """
     config格納クラス
     """
-    FRONT_ORIGIN: str
+    FRONT_PROTOCOl: str
+    FRONT_DOMAIN: str
     ADAPTER_PATH: str
     BASE_MODEL: str
     DEVICE: str
+
+    @property
+    def FRONT_ORIGIN(self) -> str:
+        return f'{self.FRONT_PROTOCOl}://{self.FRONT_DOMAIN}'
 
 def _load_config() -> _Config:
     """
