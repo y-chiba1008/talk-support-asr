@@ -1,7 +1,6 @@
-import { AbsoluteCenter, Heading, VStack, ChakraProvider, } from "@chakra-ui/react"
+import { AbsoluteCenter, Heading, VStack, } from "@chakra-ui/react"
 import AudioButton from "./components/AudioButton"
 import SentenceArea from "./components/SentenceArea"
-import { system } from "@/config/theme"
 import ErrorDialog from "./components/ErrorDialog"
 import { RecorderManager } from "./components/RecorderManager"
 import VolumeBar from "./components/VolumeBar"
@@ -10,39 +9,41 @@ import { Helmet } from "react-helmet-async"
 function App() {
     return (
         <>
+            {/* ページタイトル */}
             <Helmet>
                 <title>会話サポートアプリ</title>
             </Helmet>
-            <ChakraProvider value={system}>
-                {/* ヘッダ */}
-                <Heading
-                    as="h1" size="2xl"
-                    textAlign="center" py={4}
-                    textDecoration="underline"
-                    textDecorationColor="cyan.fg"
-                    textDecorationThickness="2px"
-                    textUnderlineOffset="3px"
-                >会話サポートアプリ</Heading>
 
-                {/* コンテンツ */}
-                <AbsoluteCenter height="80vh">
-                    <VStack
-                        width={{ base: "90vw", md: "500px" }}
-                        height="100%" align="stretch">
-                        <AudioButton />
-                        <VolumeBar />
-                        <SentenceArea
-                            flex="1"
-                            backgroundColor="bg.panel"
-                            borderWidth="1px"
-                            borderColor="border"
-                        />
-                    </VStack>
-                </AbsoluteCenter>
+            {/* ヘッダ */}
+            <Heading
+                as="h1" size="2xl"
+                textAlign="center" py={4}
+                textDecoration="underline"
+                textDecorationColor="cyan.fg"
+                textDecorationThickness="2px"
+                textUnderlineOffset="3px"
+            >会話サポートアプリ</Heading>
 
-                {/* エラーダイアログ */}
-                <ErrorDialog />
-            </ChakraProvider>
+            {/* コンテンツ */}
+            <AbsoluteCenter height="80vh">
+                <VStack
+                    width={{ base: "90vw", md: "500px" }}
+                    height="100%" align="stretch">
+                    <AudioButton />
+                    <VolumeBar />
+                    <SentenceArea
+                        flex="1"
+                        backgroundColor="bg.panel"
+                        borderWidth="1px"
+                        borderColor="border"
+                    />
+                </VStack>
+            </AbsoluteCenter>
+
+            {/* エラーダイアログ */}
+            <ErrorDialog />
+
+            {/* オーディオ制御 */}
             <RecorderManager />
         </>
     )

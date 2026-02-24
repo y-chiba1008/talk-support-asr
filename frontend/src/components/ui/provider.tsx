@@ -1,15 +1,19 @@
 "use client"
 
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
+import { ChakraProvider } from "@chakra-ui/react"
 import {
   ColorModeProvider,
   type ColorModeProviderProps,
 } from "./color-mode"
+import { HelmetProvider } from "react-helmet-async"
+import { system } from "@/config/theme"
 
 export function Provider(props: ColorModeProviderProps) {
   return (
-    <ChakraProvider value={defaultSystem}>
-      <ColorModeProvider {...props} />
-    </ChakraProvider>
+    <HelmetProvider>
+      <ChakraProvider value={system}>
+        <ColorModeProvider {...props} />
+      </ChakraProvider>
+    </HelmetProvider>
   )
 }
