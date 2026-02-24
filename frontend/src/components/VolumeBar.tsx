@@ -1,12 +1,8 @@
 import { useRecorderStore } from '@/hooks/useRecorderStore';
 import { Progress } from '@chakra-ui/react';
-import { useEffect } from 'react';
 
 const VolumeBar = () => {
     const volume = useRecorderStore((state) => state.volume);
-    useEffect(() => {
-        console.log(`volueme: ${volume}`);
-    }, [volume])
 
     // 音量に応じた色の変更
     const getColor = (v: number) => {

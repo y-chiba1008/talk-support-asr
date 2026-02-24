@@ -53,10 +53,7 @@ const AudioButton = ({ children, ...btnProps }: ButtonProps) => {
                 label: '録音する',
                 color: 'teal',
                 icon: <FaMicrophone />,
-                onClick: () => {
-                    console.log('startRecording');
-                    startRecording();
-                },
+                onClick: startRecording,
             };
         }
     }, [transcriptStatus, audioStatus, startRecording, stopRecording]);
