@@ -5,10 +5,14 @@ import { system } from "@/config/theme"
 import ErrorDialog from "./components/ErrorDialog"
 import { RecorderManager } from "./components/RecorderManager"
 import VolumeBar from "./components/VolumeBar"
+import { Helmet } from "react-helmet-async"
 
 function App() {
     return (
         <>
+            <Helmet>
+                <title>会話サポートアプリ</title>
+            </Helmet>
             <ChakraProvider value={system}>
                 {/* ヘッダ */}
                 <Heading
