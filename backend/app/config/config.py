@@ -10,8 +10,9 @@ class _Config:
     """
     FRONT_PROTOCOl: str
     FRONT_DOMAIN: str
-    ADAPTER_PATH: str
-    BASE_MODEL: str
+    BASE_MODEL_ID: str
+    LORA_MODEL_ID: str
+    HF_TOKEN: str
     DEVICE: str
 
     @property
