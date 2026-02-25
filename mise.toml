@@ -1,11 +1,10 @@
 [tools]
 node = "24"
-python = "3.12"
 uv = "latest"
 pnpm = "latest"
 
 [env]
-UV_PYTHON = "python"
+UV_PYTHON = "3.12"
 ENV = "development"
 LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED = "true"
 LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT = "{{config_root}}\\data"
