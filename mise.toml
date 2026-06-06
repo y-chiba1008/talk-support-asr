@@ -7,8 +7,22 @@ pnpm = "latest"
 UV_PYTHON = "3.12"
 ENV = "development"
 LABEL_STUDIO_LOCAL_FILES_SERVING_ENABLED = "true"
-LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT = "{{config_root}}\\data"
-LABEL_STUDIO_BASE_DATA_DIR = "{{config_root}}\\label_studio_work\\app_data"
+LABEL_STUDIO_LOCAL_FILES_DOCUMENT_ROOT = "{{config_root}}/data"
+LABEL_STUDIO_BASE_DATA_DIR = "{{config_root}}/label_studio_work/app_data"
+
+[tasks."prepare:frontend"]
+description = "frontend環境のパッケージをインストールする"
+dir = "frontend"
+run = "pnpm install"
+
+[tasks."prepare:backend"]
+description = "backend環境のパッケージをインストールする"
+dir = "backend"
+run = "uv sync"
+
+[tasks.prepare]
+description = "フロントとバックを一括でパッケージインストール"
+depends = ["prepare:frontend", "prepare:backend"]
 
 [tasks."dev:frontend"]
 description = "React 開発サーバーを起動"
