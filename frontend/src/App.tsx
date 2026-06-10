@@ -1,4 +1,4 @@
-import { AbsoluteCenter, Heading, VStack, } from "@chakra-ui/react"
+import { AbsoluteCenter, Heading, VStack, Text, } from "@chakra-ui/react"
 import AudioButton from "./components/AudioButton"
 import SentenceArea from "./components/SentenceArea"
 import ErrorDialog from "./components/ErrorDialog"
@@ -22,7 +22,10 @@ function App() {
                 textDecorationColor="cyan.fg"
                 textDecorationThickness="2px"
                 textUnderlineOffset="3px"
-            >会話サポートアプリ</Heading>
+            >
+                会話サポートアプリ
+                <Text as="span" color="red">＜デモ版＞</Text>
+            </Heading>
 
             {/* コンテンツ */}
             <AbsoluteCenter height="80vh">
