@@ -3,3 +3,4 @@ model/*
 memo/*
 *.env*
 !*/.env.sample
+.pnpm-store/*
