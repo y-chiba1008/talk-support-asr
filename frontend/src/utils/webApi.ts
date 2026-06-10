@@ -63,11 +63,14 @@ export interface TranscriptApiResult {
  * @throws 通信エラー
  */
 export const sendTranscriptRequest = async (blob: Blob): Promise<TranscriptApiResult> => {
-    // データ整形
-    const formData = new FormData();
-    formData.append('audio', blob, 'recording.wav');
+    // 通信時間をシミュレーション
+    await new Promise<void>((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 1000);
+    });
 
-    // 送信
-    const result = sendRequest<TranscriptApiResult>(TRANSCRIPT, 'POST', formData);
-    return result;
+    return {
+        sentence: '本アプリはデモ版です。正式版ではここに文字起こし結果が表示されます。'
+    }
 }
