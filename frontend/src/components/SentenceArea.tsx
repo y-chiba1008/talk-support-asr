@@ -10,9 +10,6 @@ const SentenceArea = ({ children, ...boxProps }: BoxProps) => {
     const sentence = useTranscriptStore((state) => state.sentence);
     const hasSentence = Boolean(sentence && sentence.trim() !== '');
 
-    // ヘッダのテキスト
-    const titleContent = hasSentence ? '解析結果' : '録音してください'
-
     return (
         <Box {...boxProps}>
             {/* ヘッダ */}
@@ -21,7 +18,7 @@ const SentenceArea = ({ children, ...boxProps }: BoxProps) => {
                 <Heading
                     size="sm" color="fg.info" width="full"
                     textAlign="center" padding={3} px={12}
-                >{titleContent}</Heading>
+                >解析結果</Heading>
 
                 {/* クリップボードボタン */}
                 <Box position="absolute" right={3}>

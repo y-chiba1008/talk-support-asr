@@ -42,7 +42,7 @@ const AudioButton = ({ children, ...btnProps }: ButtonProps) => {
         } else if (audioStatus === 'recording') {
             // 録音中
             return {
-                label: '録音停止',
+                label: '録音を終了する',
                 color: 'red',
                 icon: <FaMicrophoneSlash />,
                 onClick: stopRecording,
@@ -50,7 +50,7 @@ const AudioButton = ({ children, ...btnProps }: ButtonProps) => {
         } else {
             // 録音開始待ち
             return {
-                label: '録音する',
+                label: '録音を開始する',
                 color: 'teal',
                 icon: <FaMicrophone />,
                 onClick: startRecording,
