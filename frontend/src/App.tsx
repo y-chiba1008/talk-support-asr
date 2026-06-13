@@ -9,7 +9,6 @@ import VolumeBar from "./components/VolumeBar"
 function App() {
     return (
         <>
-
             {/* ヘッダ */}
             <Box position="relative" py={4}>
                 <Box position="absolute" top={4} right={4}>
