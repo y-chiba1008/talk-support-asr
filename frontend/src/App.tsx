@@ -5,10 +5,15 @@ import ErrorDialog from "./components/ErrorDialog"
 import HelpModal from "./components/HelpModal"
 import { RecorderManager } from "./components/RecorderManager"
 import VolumeBar from "./components/VolumeBar"
+import { Helmet } from "react-helmet-async"
 
 function App() {
     return (
         <>
+            {/* ページタイトル */}
+            <Helmet>
+                <title>会話サポートアプリ</title>
+            </Helmet>
 
             {/* ヘッダ */}
             <Box position="relative" py={4}>
