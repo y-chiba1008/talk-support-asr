@@ -27,7 +27,7 @@ function App() {
                     textDecorationColor="cyan.fg"
                     textDecorationThickness="2px"
                     textUnderlineOffset="3px"
-                >会話サポートアプリ<Text as="span" color="red">＜デモ版＞</Text></Heading>
+                >会話サポートアプリ<Text as="span" color="red">&lt;デモ版&gt;</Text></Heading>
             </Box>
 
             {/* コンテンツ */}
